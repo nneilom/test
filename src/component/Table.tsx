@@ -31,6 +31,8 @@ const Table = () => {
     const currentDate = startDate;
     const currentDateStr = today.toISOString().slice(0, 10);
 
+    // НАведение мыши
+
     const handleCellMouseEnter = (
       dateString: string,
       contribution: number,
@@ -54,11 +56,13 @@ const Table = () => {
       setHoveredCellCoords({ x: coordination.left, y: coordination.top });
     };
 
+    // отведение мыши
     const handleCellMouseLeave = () => {
       setHoveredDate(null);
       setHoveredContribution(null);
     };
 
+    // вычисления
     for (let i = 0; i < 7; i++) {
       const weekData = [];
       const weekStartDate = new Date(
