@@ -16,6 +16,7 @@ const Table = () => {
   }, [dispatch]);
 
   // При наведени появляется информация
+  const [hoveredCellCoords, setHoveredCellCoords] = useState({ x: 0, y: 0 });
   const [hoveredDate, setHoveredDate] = useState<string | null>(null);
   const [hoveredContribution, setHoveredContribution] = useState<number | null>(
     null
@@ -30,9 +31,15 @@ const Table = () => {
     const currentDate = startDate;
     const currentDateStr = today.toISOString().slice(0, 10);
 
-    const handleCellMouseEnter = (dateString: string, contribution: number) => {
+    const handleCellMouseEnter = (
+      dateString: string,
+      contribution: number,
+      event: React.MouseEvent<HTMLTableCellElement>
+    ) => {
       setHoveredDate(dateString);
       setHoveredContribution(contribution);
+      const coordination = event.currentTarget.getBoundingClientRect();
+      setHoveredCellCoords({ x: coordination.left, y: coordination.top });
     };
 
     const handleCellMouseLeave = () => {
@@ -68,11 +75,11 @@ const Table = () => {
           weekData.push(
             <td
               key={`${dateString}-${j}`}
-              onMouseEnter={() =>
-                handleCellMouseEnter(dateString, contribution)
+              onMouseEnter={(event) =>
+                handleCellMouseEnter(dateString, contribution, event)
               }
               onMouseLeave={handleCellMouseLeave}
-              style={{ position: "relative" }}
+              className="table-cell"
             >
               {contributionLevel}
             </td>
@@ -127,13 +134,19 @@ const Table = () => {
           </div>
         </div>
       </div>
-
       {hoveredContribution !== null && (
-        <div className="DateContibution">
+        <div
+          className="DateContibution"
+          style={{
+            top: hoveredCellCoords.y - 60,
+            left: hoveredCellCoords.x - 85,
+          }}
+        >
           <div className="TextContibution">
             {hoveredContribution} contribution
           </div>
           <div className="TextContibution">{hoveredDate}</div>
+          <div className="Pointer"></div> {/* Добавляем указатель */}
         </div>
       )}
     </div>

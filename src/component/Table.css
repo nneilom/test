@@ -20,7 +20,6 @@
   flex-direction: column;
 }
 
-/* Уберите display: inline-block из .square, чтобы позиционировать всплывающую информацию */
 .square {
   width: 20px;
   height: 20px;
@@ -61,11 +60,10 @@
 .level-4:hover {
   border: 1px solid grey;
 }
-/* Позиционируем всплывающую информацию над ячейкой */
+
 .DateContibution {
   position: absolute;
-  /* Измените значение top на 0, чтобы позиционировать компонент над ячейкой */
-  top: 0;
+  top: 300px;
   width: 200px;
   height: 60px;
   background-color: rgba(0, 0, 0, 1);
@@ -90,4 +88,14 @@
 }
 .ContributionLevelLine h5 {
   font-weight: 400;
+}
+
+.Pointer {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent rgba(0, 0, 0, 1) transparent;
 }
