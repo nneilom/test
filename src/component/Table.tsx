@@ -3,6 +3,22 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { getApiDataList } from "../store/reducers/ActionCreators";
 import "./Table.css";
 
+const formatDate = (dateString: string) => {
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  };
+  const formattedDate = new Date(dateString).toLocaleDateString(
+    "ru-Ru",
+    options
+  );
+  const weekday =
+    formattedDate.slice(0, 1).toUpperCase() + formattedDate.slice(1);
+  return weekday;
+};
+
 const Table = () => {
   //! получение данных с api
   const dispatch = useAppDispatch();
@@ -36,7 +52,7 @@ const Table = () => {
       contribution: number,
       event: React.MouseEvent<HTMLTableCellElement>
     ) => {
-      setHoveredDate(dateString);
+      setHoveredDate(formatDate(dateString));
       setHoveredContribution(contribution);
       const coordination = event.currentTarget.getBoundingClientRect();
       setHoveredCellCoords({ x: coordination.left, y: coordination.top });
@@ -145,8 +161,8 @@ const Table = () => {
           <div className="TextContibution">
             {hoveredContribution} contribution
           </div>
-          <div className="TextContibution">{hoveredDate}</div>
-          <div className="Pointer"></div> {/* Добавляем указатель */}
+          <div className="TextContibution light">{hoveredDate}</div>
+          <div className="Pointer"></div>
         </div>
       )}
     </div>

@@ -75,7 +75,14 @@
   border-radius: 10px;
 }
 .TextContibution {
-  color: white;
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.light {
+  padding-top: 5px;
+  color: #7c7c7c;
+  font-size: 12px;
 }
 .ContributionContainer {
   width: 100%;
@@ -83,11 +90,12 @@
 .ContributionLevelLine {
   display: flex;
   margin-top: 20px;
-  margin-left: 60px;
   gap: 5px;
+  align-items: center;
 }
 .ContributionLevelLine h5 {
   font-weight: 400;
+  padding: 0 5px;
 }
 
 .Pointer {
