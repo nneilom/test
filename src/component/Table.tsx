@@ -3,22 +3,6 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { getApiDataList } from "../store/reducers/ActionCreators";
 import "./Table.css";
 
-const formatDate = (dateString: string) => {
-  const options: Intl.DateTimeFormatOptions = {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  };
-  const formattedDate = new Date(dateString).toLocaleDateString(
-    "ru-Ru",
-    options
-  );
-  const weekday =
-    formattedDate.slice(0, 1).toUpperCase() + formattedDate.slice(1);
-  return weekday;
-};
-
 const Table = () => {
   //! получение данных с api
   const dispatch = useAppDispatch();
@@ -38,7 +22,7 @@ const Table = () => {
     null
   );
 
-  const renderTable = () => {
+  const renderTable = React.useMemo(() => {
     const today = new Date();
     const daysInWeek = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
     const startDate = new Date(today.getTime() - 50 * 7 * 24 * 60 * 60 * 1000);
@@ -52,7 +36,19 @@ const Table = () => {
       contribution: number,
       event: React.MouseEvent<HTMLTableCellElement>
     ) => {
-      setHoveredDate(formatDate(dateString));
+      const options: Intl.DateTimeFormatOptions = {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      };
+      const formattedDate = new Date(dateString).toLocaleDateString(
+        "ru-Ru",
+        options
+      );
+      const weekday =
+        formattedDate.slice(0, 1).toUpperCase() + formattedDate.slice(1);
+      setHoveredDate(weekday);
       setHoveredContribution(contribution);
       const coordination = event.currentTarget.getBoundingClientRect();
       setHoveredCellCoords({ x: coordination.left, y: coordination.top });
@@ -113,7 +109,7 @@ const Table = () => {
     }
 
     return tableRows;
-  };
+  }, [data]);
 
   return (
     <div className="container">
@@ -136,7 +132,7 @@ const Table = () => {
               <td colSpan={4}>Июль</td>
             </tr>
           </thead>
-          <tbody>{renderTable()}</tbody>
+          <tbody>{renderTable}</tbody>
         </table>
         <div className="ContributionContainer">
           <div className="ContributionLevelLine">
