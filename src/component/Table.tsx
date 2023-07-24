@@ -79,14 +79,11 @@ const Table = () => {
           );
         }
 
-        // Останавливаем цикл, когда достигли текущей даты
         if (currentDateStr === dateString) {
           break;
         }
       }
       tableRows.push(<tr key={i}>{weekData}</tr>);
-
-      // Останавливаем цикл, когда достигли текущей даты
       if (currentDateStr === weekStartDate.toISOString().slice(0, 10)) {
         break;
       }
