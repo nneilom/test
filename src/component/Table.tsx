@@ -15,7 +15,7 @@ const Table = () => {
     fetchData();
   }, [dispatch]);
 
-  // При наведени появление инфы
+  // При наведени появляется информация
   const [hoveredDate, setHoveredDate] = useState<string | null>(null);
   const [hoveredContribution, setHoveredContribution] = useState<number | null>(
     null
@@ -72,7 +72,7 @@ const Table = () => {
                 handleCellMouseEnter(dateString, contribution)
               }
               onMouseLeave={handleCellMouseLeave}
-              style={{ position: "relative" }} // Добавьте этот стиль
+              style={{ position: "relative" }}
             >
               {contributionLevel}
             </td>

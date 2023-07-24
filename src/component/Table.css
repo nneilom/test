@@ -1,6 +1,23 @@
-/* Добавьте позиционирование для контейнера таблицы */
+* {
+  font-family: "Roboto", sans-serif;
+  color: rgba(0, 0, 0, 0.492);
+}
 .container {
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(128, 128, 128, 0.253);
+  height: 100vh;
+}
+.frame {
+  width: 1200px;
+  height: 279px;
+  background-color: white;
+  padding: 55px 95px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 /* Уберите display: inline-block из .square, чтобы позиционировать всплывающую информацию */
@@ -44,15 +61,11 @@
 .level-4:hover {
   border: 1px solid grey;
 }
-
 /* Позиционируем всплывающую информацию над ячейкой */
 .DateContibution {
   position: absolute;
-  top: -40px; /* Измените значение top на -40px, чтобы позиционировать над ячейкой */
-  left: 50%; /* Добавьте этот стиль, чтобы выровнять по горизонтали */
-  transform: translateX(
-    -50%
-  ); /* Добавьте этот стиль, чтобы выровнять по горизонтали */
+  /* Измените значение top на 0, чтобы позиционировать компонент над ячейкой */
+  top: 0;
   width: 200px;
   height: 60px;
   background-color: rgba(0, 0, 0, 1);
