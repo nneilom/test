@@ -1,0 +1,80 @@
+/* Добавьте позиционирование для контейнера таблицы */
+.container {
+  position: relative;
+}
+
+/* Уберите display: inline-block из .square, чтобы позиционировать всплывающую информацию */
+.square {
+  width: 20px;
+  height: 20px;
+}
+
+.empty {
+  background-color: rgba(237, 237, 237, 1);
+}
+
+.level-1 {
+  background-color: rgba(172, 213, 242, 1);
+}
+
+.level-2 {
+  background-color: rgba(127, 168, 201, 1);
+}
+
+.level-3 {
+  background-color: rgba(82, 123, 160, 1);
+}
+
+.level-4 {
+  background-color: rgba(37, 78, 119, 1);
+}
+
+.empty:hover {
+  border: 1px solid grey;
+}
+.level-1:hover {
+  border: 1px solid grey;
+}
+.level-2:hover {
+  border: 1px solid grey;
+}
+.level-3:hover {
+  border: 1px solid grey;
+}
+.level-4:hover {
+  border: 1px solid grey;
+}
+
+/* Позиционируем всплывающую информацию над ячейкой */
+.DateContibution {
+  position: absolute;
+  top: -40px; /* Измените значение top на -40px, чтобы позиционировать над ячейкой */
+  left: 50%; /* Добавьте этот стиль, чтобы выровнять по горизонтали */
+  transform: translateX(
+    -50%
+  ); /* Добавьте этот стиль, чтобы выровнять по горизонтали */
+  width: 200px;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+.TextContibution {
+  color: white;
+}
+.ContributionContainer {
+  width: 100%;
+}
+.ContributionLevelLine {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 60px;
+  gap: 5px;
+}
+.ContributionLevelLine h5 {
+  font-weight: 400;
+}
