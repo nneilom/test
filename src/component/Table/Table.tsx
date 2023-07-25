@@ -144,7 +144,7 @@ const Table = () => {
           }}
         >
           <div className="TextContibution">
-            {hoveredContribution} contribution
+            {hoveredContribution} contributions
           </div>
           <div className="TextContibution light">{hoveredDate}</div>
           <div className="Pointer"></div>
