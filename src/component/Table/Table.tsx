@@ -140,7 +140,7 @@ const Table = () => {
           className="DateContibution"
           style={{
             top: hoveredCellCoords.y - 60,
-            left: hoveredCellCoords.x - 85,
+            left: hoveredCellCoords.x - 90,
           }}
         >
           <div className="TextContibution">

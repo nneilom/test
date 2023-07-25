@@ -1,0 +1,97 @@
+* {
+  font-family: "Roboto", sans-serif;
+  color: rgba(0, 0, 0, 0.492);
+}
+
+.DateContibution-color {
+  position: absolute;
+  top: 300px;
+  width: 200px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.square-con {
+  width: 20px;
+  height: 20px;
+}
+
+.empty {
+  background-color: rgba(237, 237, 237, 1);
+}
+
+.level-1 {
+  background-color: rgba(172, 213, 242, 1);
+}
+
+.level-2 {
+  background-color: rgba(127, 168, 201, 1);
+}
+
+.level-3 {
+  background-color: rgba(82, 123, 160, 1);
+}
+
+.level-4 {
+  background-color: rgba(37, 78, 119, 1);
+}
+
+.empty:hover {
+  border: 1px solid grey;
+}
+.level-1:hover {
+  border: 1px solid grey;
+}
+.level-2:hover {
+  border: 1px solid grey;
+}
+.level-3:hover {
+  border: 1px solid grey;
+}
+.level-4:hover {
+  border: 1px solid grey;
+}
+.TextContibution {
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.light {
+  padding-top: 5px;
+  color: #7c7c7c;
+  font-size: 12px;
+}
+.ContributionContainer-box {
+  width: 100%;
+}
+.ContributionLevel-line {
+  display: flex;
+  margin-top: 20px;
+  gap: 5px;
+  align-items: center;
+}
+.ContributionLevelLine h5 {
+  font-weight: 300;
+  padding: 0 5px;
+}
+
+.TextContibution-color {
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.Pointer {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent rgba(0, 0, 0, 1) transparent;
+}
