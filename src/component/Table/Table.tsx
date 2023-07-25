@@ -1,11 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { getApiDataList } from "../store/reducers/ActionCreators";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { getApiDataList } from "../../store/reducers/ActionCreators";
 import "./Table.css";
-import { calculateDaysInWeek, formatDate } from "../helpers/helpers";
-import { MS_PER_WEEK, WEEKS_TO_RENDER, monthNames } from "../constants/const";
-import ContributionLevel from "./ContributionLevel/ContributionLevel";
-import ContributionBox from "./ContributionBox/ContributionBox";
+import { calculateDaysInWeek, formatDate } from "../../helpers/helpers";
+import {
+  CONTAINER_CLASS,
+  FRAME_CLASS,
+  MS_PER_WEEK,
+  WEEKS_TO_RENDER,
+  monthNames,
+} from "../../constants/const";
+import ContributionLevel from "../ContributionLevel/ContributionLevel";
+import ContributionBox from "../ContributionBox/ContributionBox";
 
 const Table = () => {
   const dispatch = useAppDispatch();
@@ -75,7 +81,7 @@ const Table = () => {
         const dateString = date.toISOString().slice(0, 10);
         const contribution = data[dateString] || 0;
 
-        let contributionLevel = <ContributionLevel level={0} />; // Use the ContributionLevel component
+        let contributionLevel = <ContributionLevel level={0} />;
 
         if (dateString <= currentDateStr) {
           if (contribution >= 1 && contribution <= 9) {
@@ -116,8 +122,8 @@ const Table = () => {
   }, [data]);
 
   return (
-    <div className="container">
-      <div className="frame">
+    <div className={CONTAINER_CLASS}>
+      <div className={FRAME_CLASS}>
         <table>
           <thead>
             <tr>

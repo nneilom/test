@@ -1,7 +1,4 @@
-// import { useEffect } from "react";
-// import { getApiDataList } from "./store/reducers/ActionCreators";
-// import { useAppDispatch, useAppSelector } from "./hooks/redux";
-import Table from "./component/Table";
+import Table from "./component/Table/Table";
 
 function App() {
   return (
