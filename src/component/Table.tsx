@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { getApiDataList } from "../store/reducers/ActionCreators";
 import "./Table.css";
+import { calculateDaysInWeek, formatDate } from "../helpers/helpers";
+import { MS_PER_WEEK, WEEKS_TO_RENDER, monthNames } from "../constants/const";
+import ContributionLevel from "./ContributionLevel/ContributionLevel";
+import ContributionBox from "./ContributionBox/ContributionBox";
 
 const Table = () => {
-  //! получение данных с api
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.contributionSlice);
 
@@ -15,39 +18,37 @@ const Table = () => {
     fetchData();
   }, [dispatch]);
 
-  // При наведени появляется информация
+  const renderMonthHeader = () => {
+    return monthNames.map((monthName, index) => (
+      <td key={index} colSpan={4}>
+        {monthName}
+      </td>
+    ));
+  };
+
   const [hoveredCellCoords, setHoveredCellCoords] = useState({ x: 0, y: 0 });
   const [hoveredDate, setHoveredDate] = useState<string | null>(null);
   const [hoveredContribution, setHoveredContribution] = useState<number | null>(
     null
   );
 
-  const renderTable = React.useMemo(() => {
+  const renderTable = useMemo(() => {
     const today = new Date();
-    const daysInWeek = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
-    const startDate = new Date(today.getTime() - 50 * 7 * 24 * 60 * 60 * 1000);
-
-    const tableRows = [];
-    const currentDate = startDate;
+    const earliestDate = data ? new Date(Object.keys(data)[0]) : new Date();
+    const daysInWeek = calculateDaysInWeek(earliestDate);
     const currentDateStr = today.toISOString().slice(0, 10);
 
-    // НАведение мыши
+    const tableRows = [];
+    const startDate = new Date(today.getTime() - WEEKS_TO_RENDER * MS_PER_WEEK);
+
+    let currentDate = startDate;
 
     const handleCellMouseEnter = (
       dateString: string,
       contribution: number,
-      event: React.MouseEvent<HTMLTableCellElement>
+      event: React.MouseEvent
     ) => {
-      const options: Intl.DateTimeFormatOptions = {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-      };
-      const formattedDate = new Date(dateString).toLocaleDateString(
-        "ru-Ru",
-        options
-      );
+      const formattedDate = formatDate(dateString);
       const weekday =
         formattedDate.slice(0, 1).toUpperCase() + formattedDate.slice(1);
       setHoveredDate(weekday);
@@ -56,13 +57,11 @@ const Table = () => {
       setHoveredCellCoords({ x: coordination.left, y: coordination.top });
     };
 
-    // отведение мыши
     const handleCellMouseLeave = () => {
       setHoveredDate(null);
       setHoveredContribution(null);
     };
 
-    // вычисления
     for (let i = 0; i < 7; i++) {
       const weekData = [];
       const weekStartDate = new Date(
@@ -76,16 +75,17 @@ const Table = () => {
         const dateString = date.toISOString().slice(0, 10);
         const contribution = data[dateString] || 0;
 
-        let contributionLevel = <div className="square empty"></div>;
+        let contributionLevel = <ContributionLevel level={0} />; // Use the ContributionLevel component
+
         if (dateString <= currentDateStr) {
           if (contribution >= 1 && contribution <= 9) {
-            contributionLevel = <div className="square level-1"></div>;
+            contributionLevel = <ContributionLevel level={1} />;
           } else if (contribution >= 10 && contribution <= 19) {
-            contributionLevel = <div className="square level-2"></div>;
+            contributionLevel = <ContributionLevel level={2} />;
           } else if (contribution >= 20 && contribution <= 29) {
-            contributionLevel = <div className="square level-3"></div>;
+            contributionLevel = <ContributionLevel level={3} />;
           } else if (contribution >= 30) {
-            contributionLevel = <div className="square level-4"></div>;
+            contributionLevel = <ContributionLevel level={4} />;
           }
 
           weekData.push(
@@ -122,33 +122,12 @@ const Table = () => {
           <thead>
             <tr>
               <th colSpan={4}></th>
-              <td colSpan={4}>Авг.</td>
-              <td colSpan={4}>Сен.</td>
-              <td colSpan={4}>Окт.</td>
-              <td colSpan={4}>Ноя.</td>
-              <td colSpan={4}>Дек.</td>
-              <td colSpan={4}>Янв.</td>
-              <td colSpan={4}>Фев.</td>
-              <td colSpan={4}>Мар.</td>
-              <td colSpan={4}>Апр.</td>
-              <td colSpan={4}>Май</td>
-              <td colSpan={4}>Июнь</td>
-              <td colSpan={4}>Июль</td>
+              {renderMonthHeader()}
             </tr>
           </thead>
           <tbody>{renderTable}</tbody>
         </table>
-        <div className="ContributionContainer">
-          <div className="ContributionLevelLine">
-            <h5>Меньше</h5>
-            <div className="square empty"></div>
-            <div className="square level-1"></div>
-            <div className="square level-2"></div>
-            <div className="square level-3"></div>
-            <div className="square level-4"></div>
-            <h5>Больше</h5>
-          </div>
-        </div>
+        <ContributionBox />
       </div>
       {hoveredContribution !== null && (
         <div
